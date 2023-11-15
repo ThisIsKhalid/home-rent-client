@@ -8,10 +8,7 @@ import { toast } from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
-import {
-  closeLoginModal,
-  openLoginModal,
-} from "@/redux/features/modals/useLoginSlice";
+import { closeLoginModal } from "@/redux/features/modals/useLoginSlice";
 import { openModal } from "@/redux/features/modals/useRegisterSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../Button";
@@ -105,7 +102,7 @@ const LoginModal = () => {
       text-neutral-500 text-center mt-4 font-light"
       >
         <p>
-          First time using Airbnb?
+          First time using Travel Nest?
           <span
             onClick={onToggle}
             className="
@@ -127,7 +124,7 @@ const LoginModal = () => {
       disabled={isLoading}
       isOpen={isOpen}
       title="Login"
-      actionLabel="Continue"
+      actionLabel="Login"
       onClose={() => dispatch(closeLoginModal())}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

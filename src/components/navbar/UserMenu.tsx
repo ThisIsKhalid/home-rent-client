@@ -7,6 +7,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import { openLoginModal } from "@/redux/features/modals/useLoginSlice";
+import { getSession } from "@/actions/getCurrentUser";
 // import { signOut } from "next-auth/react";
 // import { useRouter } from "next/navigation";
 
@@ -24,9 +25,6 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = () => {
   //   const router = useRouter();
   const dispatch = useAppDispatch();
-  //   const loginModal = useLoginModal();
-  //   const registerModal = useRegisterModal();
-  //   const rentModal = useRentModal();
 
   const [isOpen, setIsOpen] = useState(false);
 

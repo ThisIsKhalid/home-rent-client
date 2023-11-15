@@ -34,6 +34,9 @@ export const authOptions: AuthOptions = {
               password: credentials.password,
             }
           );
+          if (!response.data.data) {
+            throw new Error("Invalid credentials");
+          }
 
           if (response.data.data) {
             return response.data.data;
