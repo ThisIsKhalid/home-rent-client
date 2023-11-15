@@ -1,7 +1,9 @@
+import ClientOnly from "@/components/ClientOnly";
 import Navbar from "@/components/navbar/Navbar";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import Modal from "@/components/modals/Modal";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -18,7 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <ClientOnly>
+          <Modal isOpen />
+          <Navbar />
+        </ClientOnly>
         {children}
       </body>
     </html>
