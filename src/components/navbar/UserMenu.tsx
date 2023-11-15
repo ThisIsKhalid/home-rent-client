@@ -1,5 +1,7 @@
 "use client";
 
+import { openModal } from "@/redux/features/modals/useRegisterSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
@@ -20,7 +22,7 @@ interface UserMenuProps {
 
 const UserMenu: React.FC<UserMenuProps> = () => {
   //   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   //   const loginModal = useLoginModal();
   //   const registerModal = useRegisterModal();
   //   const rentModal = useRentModal();
@@ -100,8 +102,8 @@ const UserMenu: React.FC<UserMenuProps> = () => {
         >
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItem label="My trips" onClick={() => {}} />
-              <MenuItem label="My favorites" onClick={() => {}} />
+              {/* <MenuItem label="Login" onClick={loginModal.onOpen} /> */}
+              <MenuItem label="Sign up" onClick={() => dispatch(openModal())} />
             </>
           </div>
         </div>
