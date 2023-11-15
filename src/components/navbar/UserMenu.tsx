@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
+import { openLoginModal } from "@/redux/features/modals/useLoginSlice";
 // import { signOut } from "next-auth/react";
 // import { useRouter } from "next/navigation";
 
@@ -102,7 +103,7 @@ const UserMenu: React.FC<UserMenuProps> = () => {
         >
           <div className="flex flex-col cursor-pointer">
             <>
-              {/* <MenuItem label="Login" onClick={loginModal.onOpen} /> */}
+              <MenuItem label="Login" onClick={() => dispatch(openLoginModal())} />
               <MenuItem label="Sign up" onClick={() => dispatch(openModal())} />
             </>
           </div>
