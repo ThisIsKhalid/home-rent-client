@@ -23,5 +23,8 @@ export default async function getCurrentUser() {
     }
 
     return response.data.data;
-  } catch (error) {}
+    
+  } catch (error: any) {
+    return null;
+  }
 }

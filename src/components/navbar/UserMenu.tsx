@@ -1,29 +1,21 @@
 "use client";
 
+import { openLoginModal } from "@/redux/features/modals/useLoginSlice";
 import { openModal } from "@/redux/features/modals/useRegisterSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { IUser } from "@/types/common";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
-import { openLoginModal } from "@/redux/features/modals/useLoginSlice";
-import { getSession } from "@/actions/getCurrentUser";
-// import { signOut } from "next-auth/react";
-// import { useRouter } from "next/navigation";
 
-// import useLoginModal from "@/app/hooks/useLoginModal";
-// import useRegisterModal from "@/app/hooks/useRegisterModal";
-// import useRentModal from "@/app/hooks/useRentModal";
 // import { SafeUser } from "@/app/types";
 
-// import MenuItem from "./MenuItem";
-
-interface UserMenuProps {
-  //   currentUser?: SafeUser | null;
-}
-
-const UserMenu: React.FC<UserMenuProps> = () => {
-  //   const router = useRouter();
+const UserMenu = ({ currentUser }: { currentUser: IUser | null }) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +31,11 @@ const UserMenu: React.FC<UserMenuProps> = () => {
 
   //     rentModal.onOpen();
   //   }, [loginModal, rentModal, currentUser]);
+
+  const handleLogout = () => {
+    signOut();
+    toast.success("Logout successful");
+  };
 
   return (
     <div className="relative">
@@ -100,10 +97,40 @@ const UserMenu: React.FC<UserMenuProps> = () => {
           "
         >
           <div className="flex flex-col cursor-pointer">
-            <>
-              <MenuItem label="Login" onClick={() => dispatch(openLoginModal())} />
-              <MenuItem label="Sign up" onClick={() => dispatch(openModal())} />
-            </>
+            {currentUser && currentUser?.email ? (
+              <>
+                <MenuItem
+                  label="My trips"
+                  onClick={() => router.push("/trips")}
+                />
+                <MenuItem
+                  label="My favorites"
+                  onClick={() => router.push("/favorites")}
+                />
+                <MenuItem
+                  label="My reservations"
+                  onClick={() => router.push("/reservations")}
+                />
+                <MenuItem
+                  label="My properties"
+                  onClick={() => router.push("/properties")}
+                />
+                {/* <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} /> */}
+                <hr />
+                <MenuItem label="Logout" onClick={handleLogout} />
+              </>
+            ) : (
+              <>
+                <MenuItem
+                  label="Login"
+                  onClick={() => dispatch(openLoginModal())}
+                />
+                <MenuItem
+                  label="Sign up"
+                  onClick={() => dispatch(openModal())}
+                />
+              </>
+            )}
           </div>
         </div>
       )}
