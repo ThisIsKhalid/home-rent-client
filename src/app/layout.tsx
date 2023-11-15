@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar/Navbar";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import Modal from "@/components/modals/Modal";
+import Providers from "@/lib/Providers";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -18,14 +18,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ClientOnly>
-          <Modal title="hello world" isOpen />
-          <Navbar />
-        </ClientOnly>
-        {children}
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={inter.className}>
+          <ClientOnly>
+            <Navbar />
+          </ClientOnly>
+          {children}
+        </body>
+      </html>
+    </Providers>
   );
 }
