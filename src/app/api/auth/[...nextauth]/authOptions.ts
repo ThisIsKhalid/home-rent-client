@@ -26,6 +26,18 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      async profile(profile) {
+        const user = {
+          id: profile.at_hash,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        };
+
+        await axios.post("http://localhost:5000/api/v1/users/google", user);
+
+        return user;
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
