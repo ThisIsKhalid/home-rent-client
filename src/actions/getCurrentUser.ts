@@ -10,6 +10,8 @@ export default async function getCurrentUser() {
   try {
     const session: any = await getSession();
 
+    // console.log(session);
+
     if (!session?.user?.email) {
       return null;
     }
@@ -21,6 +23,8 @@ export default async function getCurrentUser() {
     if (!response.data.data) {
       return null;
     }
+
+    // console.log(response.data.data);
 
     return response.data.data;
     

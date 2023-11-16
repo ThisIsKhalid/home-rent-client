@@ -13,6 +13,7 @@ import Input from "../inputs/Input";
 import Modal from "./Modal";
 import Button from "../Button";
 import { openLoginModal } from "@/redux/features/modals/useLoginSlice";
+import { signIn } from "next-auth/react";
 
 const RegisterModal = () => {
   const dispatch = useAppDispatch();
@@ -99,7 +100,7 @@ const RegisterModal = () => {
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div
         className="
