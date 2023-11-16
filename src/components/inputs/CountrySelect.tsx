@@ -3,6 +3,7 @@
 import useCountries from "@/hooks/useCountries";
 import Select from "react-select";
 
+
 export type CountrySelectValue = {
   flag: string;
   label: string;
@@ -13,22 +14,25 @@ export type CountrySelectValue = {
 
 interface CountrySelectProps {
   value?: CountrySelectValue;
-  onchange: (value: CountrySelectValue) => void;
+  onChange: (value: CountrySelectValue) => void;
 }
 
-const CountrySelect: React.FC<CountrySelectProps> = ({ value, onchange }) => {
+const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
   const { getAll } = useCountries();
 
   return (
     <div>
       <Select
-        placeholder="Select a country"
+        placeholder="Anywhere"
         isClearable
         options={getAll()}
         value={value}
-        onChange={(value) => onchange(value as CountrySelectValue)}
+        onChange={(value) => onChange(value as CountrySelectValue)}
         formatOptionLabel={(option: any) => (
-          <div className="flex flex-row items-center gap-3">
+          <div
+            className="
+          flex flex-row items-center gap-3"
+          >
             <div>{option.flag}</div>
             <div>
               {option.label},
@@ -37,18 +41,18 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ value, onchange }) => {
           </div>
         )}
         classNames={{
-            control: () => 'p-3 border-2',
-            input: () => 'text-lg',
-            option: () => 'text-lg',
+          control: () => "p-3 border-2",
+          input: () => "text-lg",
+          option: () => "text-lg",
         }}
-        theme={theme => ({
-            ...theme,
-            borderRadius: 6,
-            colors: {
-                ...theme.colors,
-                primary: 'black',
-                primary25: '#ffe4e6',
-            }
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 6,
+          colors: {
+            ...theme.colors,
+            primary: "black",
+            primary25: "#ffe4e6",
+          },
         })}
       />
     </div>
