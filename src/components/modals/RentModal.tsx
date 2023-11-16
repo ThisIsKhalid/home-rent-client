@@ -8,6 +8,7 @@ import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import Heading from "../Heading";
 import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../inputs/CountrySelect";
 
 enum STEPS {
   CATEGORY = 0,
@@ -45,6 +46,7 @@ const RentModal = () => {
   });
 
     const category = watch("category");
+
     const setCustomeValue = (id: string, value: any) => {
         setValue(id, value, {
             shouldValidate: true,
@@ -63,7 +65,7 @@ const RentModal = () => {
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.PRICE) {
-      return "Submit";
+      return "Create";
     }
     return "Next";
   }, [step]);
@@ -72,6 +74,7 @@ const RentModal = () => {
     if (step === STEPS.CATEGORY) {
       return undefined;
     }
+
     return "Back";
   }, [step]);
 
@@ -105,15 +108,32 @@ const RentModal = () => {
     </div>
   );
 
+   if (step === STEPS.LOCATION) {
+     bodyContent = (
+       <div className="flex flex-col gap-8">
+         <Heading
+           title="Where is your place located?"
+           subtitle="Help guests find you!"
+         />
+         <CountrySelect
+        //    value={location}
+        //    onChange={(value) => setCustomValue("location", value)}
+         />
+         {/* <Map center={location?.latlng} /> */}
+       </div>
+     );
+   }
+
   return (
     <Modal
+    //   disabled={isLoading}
       isOpen={isOpen}
-      onClose={() => dispatch(closeRentModal())}
-      onSubmit={() => dispatch(closeRentModal())}
+      title="Airbnb your home!"
       actionLabel={actionLabel}
+      onSubmit={() => onNext()}
       secondaryActionLabel={secondaryActionLabel}
-      secondaryAction={step !== STEPS.CATEGORY ? onBack : undefined}
-      title="Travel Nest your home"
+      secondaryAction={step === STEPS.CATEGORY ? onNext : onBack}
+      onClose={() => dispatch(closeRentModal())}
       body={bodyContent}
     />
   );
