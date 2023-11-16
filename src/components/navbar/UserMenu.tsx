@@ -1,8 +1,9 @@
 "use client";
 
-import { openLoginModal } from "@/redux/features/modals/useLoginSlice";
-import { openModal } from "@/redux/features/modals/useRegisterSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { openLoginModal } from "@/redux/features/modals/useLoginModalSlice";
+import { openModal } from "@/redux/features/modals/useRegisterModalSlice";
+import { openRentModal } from "@/redux/features/modals/useRentModalSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IUser } from "@/types/common";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -17,20 +18,21 @@ import MenuItem from "./MenuItem";
 const UserMenu = ({ currentUser }: { currentUser: IUser | null }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const isOpen = useAppSelector((state) => state.rentModal.isOpen);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
-    setIsOpen((value) => !value);
+    setIsMenuOpen((value) => !value);
   }, []);
 
-  //   const onRent = useCallback(() => {
-  //     if (!currentUser) {
-  //       return loginModal.onOpen();
-  //     }
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return dispatch(openLoginModal());
+    }
 
-  //     rentModal.onOpen();
-  //   }, [loginModal, rentModal, currentUser]);
+    dispatch(openRentModal());
+  }, [currentUser, dispatch]);
 
   const handleLogout = () => {
     signOut();
@@ -41,7 +43,7 @@ const UserMenu = ({ currentUser }: { currentUser: IUser | null }) => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          //   onClick={onRent}
+          onClick={onRent}
           className="
             hidden
             md:block
@@ -81,7 +83,7 @@ const UserMenu = ({ currentUser }: { currentUser: IUser | null }) => {
           </div>
         </div>
       </div>
-      {isOpen && (
+      {isMenuOpen && (
         <div
           className="
             absolute 
@@ -115,7 +117,7 @@ const UserMenu = ({ currentUser }: { currentUser: IUser | null }) => {
                   label="My properties"
                   onClick={() => router.push("/properties")}
                 />
-                {/* <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} /> */}
+                <MenuItem label="Airbnb your home" onClick={() => dispatch(openRentModal())} />
                 <hr />
                 <MenuItem label="Logout" onClick={handleLogout} />
               </>

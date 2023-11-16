@@ -94,6 +94,7 @@ const Modal: React.FC<ModalProps> = ({
           my-20
           mx-auto 
           h-full
+          md:h-auto
           "
         >
           {/*content*/}

@@ -1,19 +1,19 @@
 "use client";
 
-import { closeModal } from "@/redux/features/modals/useRegisterSlice";
+import { openLoginModal } from "@/redux/features/modals/useLoginModalSlice";
+import { closeModal } from "@/redux/features/modals/useRegisterModalSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import Button from "../Button";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Modal from "./Modal";
-import Button from "../Button";
-import { openLoginModal } from "@/redux/features/modals/useLoginSlice";
-import { signIn } from "next-auth/react";
 
 const RegisterModal = () => {
   const dispatch = useAppDispatch();

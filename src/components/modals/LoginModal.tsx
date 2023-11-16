@@ -8,8 +8,8 @@ import { toast } from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
-import { closeLoginModal } from "@/redux/features/modals/useLoginSlice";
-import { openModal } from "@/redux/features/modals/useRegisterSlice";
+import { closeLoginModal } from "@/redux/features/modals/useLoginModalSlice";
+import { openModal } from "@/redux/features/modals/useRegisterModalSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../Button";
 import Heading from "../Heading";
