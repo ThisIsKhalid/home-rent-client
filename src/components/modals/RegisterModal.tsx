@@ -37,7 +37,7 @@ const RegisterModal = () => {
     console.log(data);
 
     axios
-      .post("http://localhost:5000/api/v1/users/register", data)
+      .post(`${process.env.SERVER_URL}/api/v1/users/register`, data)
       .then(() => {
         toast.success("Registered!");
         dispatch(closeModal());

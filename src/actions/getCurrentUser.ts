@@ -17,7 +17,7 @@ export default async function getCurrentUser() {
     }
 
     const response = await axios.get(
-      `http://localhost:5000/api/v1/users/${session.user.email}`
+      `${process.env.SERVER_URL}/api/v1/users/${session.user.email}`
     );
 
     if (!response.data.data) {

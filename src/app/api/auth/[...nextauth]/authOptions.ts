@@ -18,7 +18,7 @@ export const authOptions: AuthOptions = {
           image: profile.avatar_url,
         };
 
-        await axios.post("http://localhost:5000/api/v1/users/github", user);
+        await axios.post(`${process.env.SERVER_URL}/api/v1/users/github`, user);
 
         return user;
       },
@@ -34,7 +34,7 @@ export const authOptions: AuthOptions = {
           image: profile.picture,
         };
 
-        await axios.post("http://localhost:5000/api/v1/users/google", user);
+        await axios.post(`${process.env.SERVER_URL}/api/v1/users/google`, user);
 
         return user;
       },
@@ -52,7 +52,7 @@ export const authOptions: AuthOptions = {
 
         try {
           const response = await axios.post(
-            "http://localhost:5000/api/v1/users/login",
+            `${process.env.SERVER_URL}/api/v1/users/login`,
             {
               email: credentials.email,
               password: credentials.password,
