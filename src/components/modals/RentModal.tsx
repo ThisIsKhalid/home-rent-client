@@ -12,6 +12,7 @@ import { categories } from "../navbar/Categories";
 import Modal from "./Modal";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
+import Input from "../inputs/Input";
 
 enum STEPS {
   CATEGORY = 0,
@@ -26,6 +27,7 @@ const RentModal = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.rentModal.isOpen);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
 
   const {
@@ -188,6 +190,34 @@ const RentModal = () => {
       </div>
     );
   }
+
+   if (step === STEPS.DESCRIPTION) {
+     bodyContent = (
+       <div className="flex flex-col gap-8">
+         <Heading
+           title="How would you describe your place?"
+           subtitle="Short and sweet works best!"
+         />
+         <Input
+           id="title"
+           label="Title"
+           disabled={isLoading}
+           register={register}
+           errors={errors}
+           required
+         />
+         <hr />
+         <Input
+           id="description"
+           label="Description"
+           disabled={isLoading}
+           register={register}
+           errors={errors}
+           required
+         />
+       </div>
+     );
+   }
 
   return (
     <Modal
