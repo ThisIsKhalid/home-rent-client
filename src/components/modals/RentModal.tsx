@@ -10,6 +10,7 @@ import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
 import { categories } from "../navbar/Categories";
 import Modal from "./Modal";
+import Counter from "../inputs/Counter";
 
 enum STEPS {
   CATEGORY = 0,
@@ -48,6 +49,9 @@ const RentModal = () => {
 
   const category = watch("category");
   const location = watch("location");
+  const guestCount = watch("guestCount");
+  const roomCount = watch("roomCount");
+  const bathroomCount = watch("bathroomCount");
 
   const Map = useMemo(
     () =>
@@ -58,7 +62,7 @@ const RentModal = () => {
     [location]
   );
 
-  const setCustomeValue = (id: string, value: any) => {
+  const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldValidate: true,
       shouldDirty: true,
@@ -109,7 +113,7 @@ const RentModal = () => {
           <div key={item.label} className="col-span-1">
             <CategoryInput
               onClick={(category) => {
-                setCustomeValue("category", category);
+                setCustomValue("category", category);
               }}
               selected={category === item.label}
               label={item.label}
@@ -130,7 +134,7 @@ const RentModal = () => {
         />
         <CountrySelect
           value={location}
-          onChange={(value) => setCustomeValue("location", value)}
+          onChange={(value) => setCustomValue("location", value)}
         />
         <Map center={location?.latlng} />
       </div>
@@ -144,7 +148,7 @@ const RentModal = () => {
           title="Share some basics about your place"
           subtitle="What amenitis do you have?"
         />
-        {/* <Counter
+        <Counter
           onChange={(value) => setCustomValue("guestCount", value)}
           value={guestCount}
           title="Guests"
@@ -163,7 +167,7 @@ const RentModal = () => {
           value={bathroomCount}
           title="Bathrooms"
           subtitle="How many bathrooms do you have?"
-        /> */}
+        />
       </div>
     );
   }
