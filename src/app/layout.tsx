@@ -24,6 +24,7 @@ export default async function RootLayout({
 }) {
 
   const currentUser = await getCurrentUser();
+  // console.log(currentUser);
   return (
     <Providers>
       <html lang="en">
@@ -32,7 +33,7 @@ export default async function RootLayout({
             <ToasterProvider />
             <RegisterModal />
             <LoginModal />
-            <RentModal />
+            <RentModal currentUser={currentUser} />
             <Navbar currentUser={currentUser} />
           </ClientOnly>
           {children}

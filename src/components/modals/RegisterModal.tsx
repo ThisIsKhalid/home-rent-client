@@ -34,7 +34,7 @@ const RegisterModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log(data);
+    // console.log(data);
 
     axios
       .post(`${process.env.SERVER_URL}/api/v1/users/register`, data)

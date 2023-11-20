@@ -2,7 +2,9 @@
 
 import { closeRentModal } from "@/redux/features/modals/useRentModalSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import axios from "axios";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -14,6 +16,8 @@ import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import { categories } from "../navbar/Categories";
 import Modal from "./Modal";
+import getCurrentUser from "@/actions/getCurrentUser";
+import { IUser } from "@/types/common";
 
 enum STEPS {
   CATEGORY = 0,
@@ -24,7 +28,8 @@ enum STEPS {
   PRICE = 5,
 }
 
-const RentModal = () => {
+const RentModal = ({ currentUser }: { currentUser: IUser }) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.rentModal.isOpen);
 
@@ -36,6 +41,7 @@ const RentModal = () => {
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -83,28 +89,54 @@ const RentModal = () => {
     setStep((value) => value + 1);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (step !== STEPS.PRICE) {
       return onNext();
     }
-  console.log(data);
-    // setIsLoading(true);
 
-    // axios
-    //   .post("/api/listings", data)
-    //   .then(() => {
-    //     toast.success("Listing created!");
-    //     router.refresh();
-    //     reset();
-    //     setStep(STEPS.CATEGORY);
-    //     rentModal.onClose();
-    //   })
-    //   .catch(() => {
-    //     toast.error("Something went wrong.");
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+    for (let key in data) {
+      if (data[key] === undefined || data[key] === null || data[key] === "") {
+        const errorMessage = `Missing value for ${key}`;
+        toast.error(errorMessage);
+        return;
+      }
+    }
+
+    if (!currentUser?.id) {
+      toast.error("You must be logged in to add a house.");
+      return;
+    }
+
+    const newData = {
+      title: data.title,
+      description: data.description,
+      imageSrc: data.imageSrc,
+      category: data.category,
+      roomCount: parseInt(data.roomCount),
+      bathroomCount: parseInt(data.bathroomCount),
+      guestCount: parseInt(data.guestCount),
+      locationValue: data.location?.label,
+      userId: currentUser.id,
+      price: parseInt(data.price),
+    };
+    setIsLoading(true);
+    // console.log(newData);
+
+    axios
+      .post(`${process.env.SERVER_URL}/api/v1/houses/add-house`, newData)
+      .then(() => {
+        toast.success("House added!");
+        router.refresh();
+        reset();
+        setStep(STEPS.CATEGORY);
+        dispatch(closeRentModal());
+      })
+      .catch(() => {
+        toast.error("Something went wrong.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const actionLabel = useMemo(() => {
