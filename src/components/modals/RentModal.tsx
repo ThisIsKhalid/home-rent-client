@@ -123,7 +123,10 @@ const RentModal = ({ currentUser }: { currentUser: IUser }) => {
     // console.log(newData);
 
     axios
-      .post(`${process.env.SERVER_URL}/api/v1/houses/add-house`, newData)
+      .post(
+        `https://travel-nest-server-one.vercel.app/api/v1/houses/add-house`,
+        newData
+      )
       .then(() => {
         toast.success("House added!");
         router.refresh();

@@ -37,7 +37,10 @@ const RegisterModal = () => {
     // console.log(data);
 
     axios
-      .post(`${process.env.SERVER_URL}/api/v1/users/register`, data)
+      .post(
+        `https://travel-nest-server-one.vercel.app/api/v1/users/register`,
+        data
+      )
       .then(() => {
         toast.success("Registered!");
         dispatch(closeModal());
