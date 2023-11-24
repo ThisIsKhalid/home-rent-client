@@ -1,14 +1,14 @@
+import getCurrentUser from "@/actions/getCurrentUser";
 import ClientOnly from "@/components/ClientOnly";
+import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
+import RentModal from "@/components/modals/RentModal";
 import Navbar from "@/components/navbar/Navbar";
 import Providers from "@/lib/Providers";
 import ToasterProvider from "@/lib/ToasterProvider";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import LoginModal from "@/components/modals/LoginModal";
-import getCurrentUser from "@/actions/getCurrentUser";
-import RentModal from "@/components/modals/RentModal";
 
 const inter = Nunito({ subsets: ["latin"] });
 

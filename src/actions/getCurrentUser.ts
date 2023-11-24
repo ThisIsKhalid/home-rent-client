@@ -24,7 +24,7 @@ export default async function getCurrentUser() {
       return null;
     }
 
-    // console.log(response.data.data);
+    // console.log(response.data.data, 'session');
 
     return response.data.data;
     

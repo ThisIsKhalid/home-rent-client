@@ -1,13 +1,19 @@
+import getCurrentUser from "@/actions/getCurrentUser";
+import getHouses, { IHousesParams } from "@/actions/getHouses";
 import ClientOnly from "@/components/ClientOnly";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 
+interface HomeProps {
+  searchParams: IHousesParams
+};
 
-export default function Home() {
+const Home = async ({ searchParams }: HomeProps) => {
+  const houses = await getHouses(searchParams);
+  const currentUser = await getCurrentUser();
+  
 
-  const isEmpty = true;
-
-  if (isEmpty) {
+  if (houses?.length === 0) {
     return (
       <ClientOnly>
         <EmptyState showReset />
@@ -31,9 +37,13 @@ export default function Home() {
             gap-8
           "
         >
-
+          {houses?.map((listing: any) => (
+            <p key={listing.id}>{listing.category}</p>
+          ))}
         </div>
       </Container>
     </ClientOnly>
   );
-}
+};
+
+export default Home;
