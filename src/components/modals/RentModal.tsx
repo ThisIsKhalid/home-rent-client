@@ -115,7 +115,7 @@ const RentModal = ({ currentUser }: { currentUser: IUser }) => {
       roomCount: parseInt(data.roomCount),
       bathroomCount: parseInt(data.bathroomCount),
       guestCount: parseInt(data.guestCount),
-      locationValue: data.location?.label,
+      locationValue: data.location?.value,
       userId: currentUser.id,
       price: parseInt(data.price),
     };

@@ -3,6 +3,7 @@ import getHouses, { IHousesParams } from "@/actions/getHouses";
 import ClientOnly from "@/components/ClientOnly";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
+import ListingCard from "@/components/houses/ListingCard";
 
 interface HomeProps {
   searchParams: IHousesParams
@@ -37,8 +38,12 @@ const Home = async ({ searchParams }: HomeProps) => {
             gap-8
           "
         >
-          {houses?.map((listing: any) => (
-            <p key={listing.id}>{listing.category}</p>
+          {houses?.map((house: any) => (
+            <ListingCard
+              currentUser={currentUser}
+              key={house.id}
+              data={house}
+            />
           ))}
         </div>
       </Container>
