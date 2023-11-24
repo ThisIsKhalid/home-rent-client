@@ -15,6 +15,8 @@ interface IUseFavorite {
 
 const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
   const router = useRouter();
+  const userId = currentUser?.id;
+//   console.log(userId,'hello', listingId);
 
   const dispatch = useAppDispatch();
 
@@ -23,12 +25,13 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 
     return list.includes(listingId);
   }, [currentUser, listingId]);
+//   console.log(hasFavorited, 'hasFavorited');
 
   const toggleFavorite = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
 
-      if (!currentUser) {
+      if (!currentUser || !userId) {
         return dispatch(openLoginModal());
       }
 
@@ -36,9 +39,15 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
         let request;
 
         if (hasFavorited) {
-          request = () => axios.delete(`/api/favorites/${listingId}`);
+          request = () =>
+            axios.delete(
+              `http://localhost:5000/api/v1/houses/favorites/${userId}/${listingId}`
+            );
         } else {
-          request = () => axios.post(`/api/favorites/${listingId}`);
+          request = () =>
+            axios.post(
+              `http://localhost:5000/api/v1/houses/favorites/${userId}/${listingId}`
+            );
         }
 
         await request();
@@ -48,7 +57,7 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
         toast.error("Something went wrong.");
       }
     },
-    [currentUser, hasFavorited, listingId, router, dispatch]
+    [currentUser, hasFavorited, listingId, router, dispatch, userId]
   );
 
   return {
