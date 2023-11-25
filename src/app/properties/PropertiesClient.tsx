@@ -27,7 +27,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 
       axios
         .delete(
-          `http://localhost:5000/api/v1/houses/delete-house/${currentUser?.id}/${id}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/houses/delete-house/${currentUser?.id}/${id}`
         )
         .then(() => {
           toast.success("House deleted");
@@ -45,10 +45,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 
   return (
     <Container>
-      <Heading
-        title="Properties"
-        subtitle="List of your properties"
-      />
+      <Heading title="Properties" subtitle="List of your properties" />
       <div
         className="
           mt-10

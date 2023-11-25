@@ -12,7 +12,7 @@ export default async function getHouseById(params: IParams) {
       return null;
     }
 
-    const url = `http://localhost:5000/api/v1/houses/${houseId}`;
+    const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/houses/${houseId}`;
 
     const response = await axios.get(url);
 

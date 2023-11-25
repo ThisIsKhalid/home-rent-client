@@ -9,7 +9,7 @@ interface IParams {
 export default async function getReservations(params: IParams) {
   try {
     const { houseId, userId, authorId } = params;
-    let url = "http://localhost:5000/api/v1/reservations";
+    let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/reservations`;
 
     if (houseId) url += `?houseId=${houseId}`;
     if (userId) url += `${url.includes("?") ? "&" : "?"}userId=${userId}`;

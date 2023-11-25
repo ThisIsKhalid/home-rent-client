@@ -13,7 +13,7 @@ export interface IHousesParams {
 
 export default async function getHouses(params: IHousesParams) {
   try {
-    const url = `http://localhost:5000/api/v1/houses`; // replace with your API URL
+    const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/houses`; // replace with your API URL
     const response = await axios.get(url, {
       params: params,
     });

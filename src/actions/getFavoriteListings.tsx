@@ -11,7 +11,7 @@ export default async function getFavoriteListings() {
       return [];
     }
 
-    let url = `http://localhost:5000/api/v1/houses/favorites/${currentUser.id}`;
+    let url = `${process.env.NEXT_PUBLIC_SERVER_URL}/houses/favorites/${currentUser.id}`;
 
     const response = await axios.get(url);
 

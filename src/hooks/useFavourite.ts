@@ -41,12 +41,12 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
         if (hasFavorited) {
           request = () =>
             axios.delete(
-              `http://localhost:5000/api/v1/houses/favorites/${userId}/${listingId}`
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/houses/favorites/${userId}/${listingId}`
             );
         } else {
           request = () =>
             axios.post(
-              `http://localhost:5000/api/v1/houses/favorites/${userId}/${listingId}`
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/houses/favorites/${userId}/${listingId}`
             );
         }
 

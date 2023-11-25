@@ -67,13 +67,16 @@ const HouseClient: React.FC<ListingClientProps> = ({
     setIsLoading(true);
 
     axios
-      .post("http://localhost:5000/api/v1/reservations/add-reservation", {
-        userId: currentUser?.id,
-        houseId: listing?.id,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        totalPrice,
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/reservations/add-reservation`,
+        {
+          userId: currentUser?.id,
+          houseId: listing?.id,
+          startDate: dateRange.startDate,
+          endDate: dateRange.endDate,
+          totalPrice,
+        }
+      )
       .then(() => {
         toast.success("Listing reserved!");
         setDateRange(initialDateRange);

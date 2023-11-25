@@ -26,7 +26,9 @@ const TripsClient: React.FC<TripsClientProps> = ({
       setDeletingId(id);
 
       axios
-        .delete(`http://localhost:5000/api/v1/reservations/${currentUser?.id}/${id}`)
+        .delete(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/reservations/${currentUser?.id}/${id}`
+        )
         .then(() => {
           toast.success("Reservation cancelled");
           router.refresh();

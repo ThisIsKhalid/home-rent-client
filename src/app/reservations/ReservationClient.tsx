@@ -28,7 +28,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
 
       axios
         .delete(
-          `http://localhost:5000/api/v1/reservations/${currentUser?.id}/${id}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/reservations/${currentUser?.id}/${id}`
         )
         .then(() => {
           toast.success("Reservation cancelled");
