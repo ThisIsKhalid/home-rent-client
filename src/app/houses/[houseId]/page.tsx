@@ -29,6 +29,7 @@ const HouseDetails = async ({ params }: { params: IParams }) => {
     <ClientOnly>
       <HouseClient
         listing={listing}
+        reservations={reservations}
         currentUser={currentUser}
       />
     </ClientOnly>

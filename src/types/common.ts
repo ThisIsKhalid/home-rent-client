@@ -45,6 +45,7 @@ type Reservation = {
   totalPrice: number;
   createdAt: string;
   updatedAt: string;
+  house?: House
 };
 
 export type SafeReservation = Omit<
