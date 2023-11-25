@@ -9,6 +9,7 @@ import ToasterProvider from "@/lib/ToasterProvider";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import SearchModal from "@/components/modals/SearchModal";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
             <RegisterModal />
             <LoginModal />
             <RentModal currentUser={currentUser} />
+            <SearchModal />
             <Navbar currentUser={currentUser} />
           </ClientOnly>
           <div className="pb-20 pt-28">{children}</div>
