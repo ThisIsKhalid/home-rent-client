@@ -58,15 +58,12 @@ export const authOptions: AuthOptions = {
 
         try {
           const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
+            `https://travel-nest-server-one.vercel.app/api/v1/users/login`,
             {
               email: credentials.email,
               password: credentials.password,
             }
           );
-          if (!response.data.data) {
-            throw new Error("Invalid credentials");
-          }
 
           if (response.data.data) {
             return response.data.data;
