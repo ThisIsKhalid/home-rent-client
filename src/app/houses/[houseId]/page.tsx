@@ -3,6 +3,7 @@ import ClientOnly from "@/components/ClientOnly";
 import EmptyState from "@/components/EmptyState";
 import getCurrentUser from "@/actions/getCurrentUser";
 import HouseClient from "./HouseClient";
+import getReservations from "@/actions/getReservation";
 
 
 interface IParams {
@@ -12,7 +13,8 @@ interface IParams {
 const HouseDetails = async ({ params }: { params: IParams }) => {
     const listing = await getHouseById(params);
     const currentUser = await getCurrentUser();
-    // console.log(listing);
+    const reservations = await getReservations(params)
+    // console.log(reservations);
 
 
      if (!listing) {

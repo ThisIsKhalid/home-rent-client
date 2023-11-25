@@ -3,17 +3,17 @@
 import Container from "@/components/Container";
 import ListingHead from "@/components/houses/ListingHead";
 import ListingInfo from "@/components/houses/ListingInfo";
+import ListingReservation from "@/components/houses/ListingReservation";
 import { categories } from "@/components/navbar/Categories";
 import { openLoginModal } from "@/redux/features/modals/useLoginModalSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { SafeListing, SafeReservation, SafeUser } from "@/types/common";
 import axios from "axios";
-import { eachDayOfInterval, differenceInCalendarDays } from "date-fns";
-import { Range } from "react-date-range";
+import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Range } from "react-date-range";
 import { toast } from "react-hot-toast";
-import ListingReservation from "@/components/houses/ListingReservation";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -67,11 +67,12 @@ const HouseClient: React.FC<ListingClientProps> = ({
     setIsLoading(true);
 
     axios
-      .post("/api/reservations", {
-        totalPrice,
+      .post("http://localhost:5000/api/v1/reservations/add-reservation", {
+        userId: currentUser?.id,
+        houseId: listing?.id,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
-        listingId: listing?.id,
+        totalPrice,
       })
       .then(() => {
         toast.success("Listing reserved!");
